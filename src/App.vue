@@ -275,14 +275,13 @@ body {
   margin: 0;
   font-family: sans-serif;
   background: #1a1a1a;
-  /* Match the app background */
   color: white;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   padding: 0;
-  overflow: hidden;
   /* Prevent scrolling */
+  overflow: hidden;
 }
 
 .app {
