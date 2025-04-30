@@ -230,7 +230,7 @@ const draw = () => {
 
 const debouncedDraw = useDebounceFn(() => {
   if (fontImage.complete) draw()
-}, 100);
+}, 1);
 
 function downloadImage() {
   const link = document.createElement('a')
