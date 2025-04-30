@@ -35,6 +35,7 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue'
+import { useDebounceFn } from '@vueuse/core';
 
 const text = ref('Rank')
 const canvas = ref(null)
@@ -126,7 +127,7 @@ const applyPreset = () => {
 }
 
 const fontImage = new Image()
-fontImage.src = 'ascii.png'
+fontImage.src = '/minecraft-rank-generator/ascii.png'
 
 let charWidths = {}
 
@@ -227,6 +228,10 @@ const draw = () => {
   imageSrc.value = canvas.value.toDataURL()
 }
 
+const debouncedDraw = useDebounceFn(() => {
+  if (fontImage.complete) draw()
+}, 1);
+
 function downloadImage() {
   const link = document.createElement('a')
   link.href = imageSrc.value
@@ -259,7 +264,7 @@ function colorize(image, colorHex) {
 }
 
 watch([text, bgColor, borderColor, shadowColor, showBorder, showShadow], () => {
-  if (fontImage.complete) draw()
+  debouncedDraw(); 
 })
 
 onMounted(() => {
